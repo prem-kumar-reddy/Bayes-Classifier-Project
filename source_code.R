@@ -21,7 +21,7 @@ std <- function(data,mean){
   for(i in 1:length(data)){
     sum <- sum + (data[i]-mean)^2
   }
-  return(sum/length(data))
+  return(sqrt(sum/length(data)))
 }
 
 # Normalization
@@ -32,6 +32,7 @@ norm = function(x, meanVal, stdVal){
 # ----------------------------> Naive Bayes Classifier <-----------------------------------------------
 predict <- function(train_data,test_x,category_cols,continous_cols){
   
+  #category_lkh
   category_lkh <- list()
   
   for(i in category_cols){
@@ -40,9 +41,7 @@ predict <- function(train_data,test_x,category_cols,continous_cols){
       s = as.name(as.character(j))
       category_lkh[[i]][[s]] <- c(length(which(train_data[i]==j & train_data$target==0))/length(which(train_data$target==0)),length(which(train_data[i]==j & train_data$target==1))/length(which(train_data$target==1)))
     }
-    # <- temp
   }
-  #category_lkh
   
   train_data.y0 <- subset(train_data,subset=train_data$target==0)
   train_data.y1 <- subset(train_data,subset=train_data$target==1)
@@ -99,13 +98,11 @@ KFoldCrossVal <- function(dataset,k) {
     train_data <- rbind(dataset[0:(from-1),],dataset[(to+1):len,])
     
     test_x <- subset(test_data,select = -target)
-    #print(test_x)
     test_y <- subset(test_data,select = target)
     
     result <- data.frame(test_y)
     result$predicted_target <- predict(train_data,test_x,category_cols,continous_cols)
-    #confusion_matrix <- table(result$target,result$predicted_target)
-    #print(confusion_matrix)
+    
     accuracy[i] <- length(which(result$target==result$predicted_target))/length(result$target)*100
   }
   return(mean(accuracy))
