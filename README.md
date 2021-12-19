@@ -1,7 +1,8 @@
 # Bayes-Classifier-Project
 Naives Bayes Classifier used to test and predict heart data.
 
-Probabilistic classification using statistical Naïve Bayes’ classifier
+## Problem Statement
+### Probabilistic classification using statistical Naïve Bayes’ classifier
 Reference: Heart disease Dataset
 a) Split the dataset into training and testing set appropriately. Obtain the appropriate
 contingency table from an training data set comprising the prior and posterior
